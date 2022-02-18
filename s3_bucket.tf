@@ -18,10 +18,10 @@ resource "aws_s3_bucket" "perm_bucket_name" {
     lifecycle_rule {
         id      = "permanent_retention"
         enabled = true
-        prefix  = "permanent/"
+        prefix  = "images/"
 
         transition {
-            days            = 60
+            days            = 90
             storage_class   = "GLACIER"
         }
     }
