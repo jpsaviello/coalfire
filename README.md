@@ -20,7 +20,7 @@ Another .tf file was created that set up an application load balancer that liste
 6.) S3 Bucket
 Created s3 bucket with lifestyle policies that looked for images/ folder and move to glacier storage after 80 day. The other lifecycle policy looked for the logs/ folder and deleted logs after 90 days
 
-# Additional thoughts/ Actions
+# Additional thoughts/actions
 
 1.) I went ahead and created EBS and attached it to the EC2 instance to increase space
 
