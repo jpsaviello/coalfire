@@ -27,3 +27,5 @@ Created s3 bucket with lifestyle policies that looked for images/ folder and mov
 2.) In a production environment, instances can be spread out across AZs to ensure eliability, within Terraform code, load balancer health points can be configured to continually hit out backend services to ensure that they are healthy
 
 3.) I have gone ahead and removed the access_key and secret_key from the configuration files to ensure that they are not exposed
+
+4.) Modules were used in Terraform code
