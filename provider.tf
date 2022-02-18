@@ -1,7 +1,7 @@
 provider "aws" {
       region     = "${var.region}"
-      access_key = "AKIA6G7RZIT4354AH46O"
-      secret_key = "wT51Xa4ECR8JqT2qgUH21XDpwvCKTFCIrhU+GfTW"
+      access_key = PLACEHOLDER     
+      secret_key = PLACEHOLDER
 }
 
 
