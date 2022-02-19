@@ -42,7 +42,7 @@ Created s3 bucket with lifestyle policies that looked for images/ folder and mov
 
 # Note on S3 Buckets
 
-erraform AWS Provider is upgraded to version 4.0.0 which is published on 10 February 2022.
+Terraform AWS Provider is upgraded to version 4.0.0 which is published on 10 February 2022.
 
 Major changes in the release include:
 
