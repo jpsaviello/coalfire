@@ -53,4 +53,6 @@ The reason for this change by Terraform is as follows: To help distribute the ma
 
 
 -> To get around this issue the lifecycle terraform code must be altered to use _rule_ instead of _lifecycle_rule_
+
+
 Guide here: https://registry.terraform.io/providers/hashicorp/aws/latest/docs/guides/version-4-upgrade#s3-bucket-refactor
