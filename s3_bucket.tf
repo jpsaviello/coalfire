@@ -1,28 +1,4 @@
-resource "aws_s3_bucket" "bucket" {
-bucket = "bucket"
-lifecycle_rule {
-  id = "log_retention"
-prefix = "logs/"
-enabled = true
-        expiration {
-            days = 90
-}
+resource "aws_s3_bucket" "this" {
 
-}
-
-}
-
-resource "aws_s3_bucket" "perm_bucket_name" {
-    bucket  = "perm_bucket_name"
-    acl     = "private"
-    lifecycle_rule {
-        id      = "permanent_retention"
-        enabled = true
-        prefix  = "images/"
-
-        transition {
-            days            = 90
-            storage_class   = "GLACIER"
-        }
-    }
+  force_destroy                        = var.force_destroy
 }
