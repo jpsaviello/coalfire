@@ -19,7 +19,7 @@ resource "aws_launch_configuration" "as_conf" {
   image_id      = data.aws_ami.ubuntu.id
   instance_type = "t2.micro"
 }
-// Had issue creating ASG on subnet4 but did create it on us-east-1b - instances are running uubuntu
+// Had issue creating ASG on subnet4 but did create it on us-east-1b
 resource "aws_autoscaling_group" "bar" {
   name                 = "terraform-asg-example"
   launch_configuration = aws_launch_configuration.as_conf.name
