@@ -24,8 +24,18 @@ Created s3 bucket with lifestyle policies that looked for images/ folder and mov
 
 1.) I went ahead and created EBS and attached it to the EC2 instance to increase space
 
-2.) In a production environment, instances can be spread out across AZs to ensure eliability, within Terraform code, load balancer health points can be configured to continually hit out backend services to ensure that they are healthy
+2.) I have gone ahead and removed the access_key and secret_key from the configuration files to ensure that they are not exposed
 
-3.) I have gone ahead and removed the access_key and secret_key from the configuration files to ensure that they are not exposed
+3.) Modules were used in Terraform code
 
-4.) Modules were used in Terraform code
+4.) Breaking up the Terraform code into components is ideal in an IaaC situation. While creating this solution, I split out each component into its own configuration file - this reduces the complexity of maintaing large amounts of code in one place.
+
+# Running the code
+
+1.) To run this automated deployment, first ensure that you have Terraform installed on your machine
+
+2.) Open up your terminal and run "terraform init" to initialize the code, download modules, plugins, etc.
+
+3.) Next, run "terraform plan" in your terminal to preview the changes that you are about to make to your Terraform code
+
+4.) Once satisified with changes, run "terraform apply" to begin automated deployment of AWS (or other cloud provider) infrastructure
