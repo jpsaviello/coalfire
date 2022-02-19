@@ -39,3 +39,18 @@ Created s3 bucket with lifestyle policies that looked for images/ folder and mov
 3.) Next, run "terraform plan" in your terminal to preview the changes that you are about to make to your Terraform code
 
 4.) Once satisified with changes, run "terraform apply" to begin automated deployment of AWS (or other cloud provider) infrastructure
+
+# Note on S3 Buckets
+
+erraform AWS Provider is upgraded to version 4.0.0 which is published on 10 February 2022.
+
+Major changes in the release include:
+
+Version 4.0.0 of the AWS Provider introduces significant changes to the aws_s3_bucket resource.
+Version 4.0.0 of the AWS Provider will be the last major version to support EC2-Classic resources as AWS plans to fully retire EC2-Classic Networking. See the AWS News Blog for additional details.
+Version 4.0.0 and 4.x.x versions of the AWS Provider will be the last versions compatible with Terraform 0.12-0.15.
+The reason for this change by Terraform is as follows: To help distribute the management of S3 bucket settings via independent resources, various arguments and attributes in the aws_s3_bucket resource have become read-only. Configurations dependent on these arguments should be updated to use the corresponding aws_s3_bucket_* resource. Once updated, new aws_s3_bucket_* resources should be imported into Terraform state.
+
+
+-> To get around this issue the lifecycle terraform code must be altered to use _rule_ instead of _lifecycle_rule_
+Guide here: https://registry.terraform.io/providers/hashicorp/aws/latest/docs/guides/version-4-upgrade#s3-bucket-refactor
