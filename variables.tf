@@ -34,4 +34,13 @@ variable "vpc_id" {
   default = "vpc-0b16b8f92124eb6d5"
 }
  
- 
+variable "my_bucket" {
+  description = "creating a bucket"
+  type = string
+  default = "my_s3_bucket"
+}
+
+variable "force_destroy" {
+  type        = string
+  default     = true
+}
