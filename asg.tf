@@ -1,104 +1,33 @@
+data "aws_ami" "ubuntu" {
+  most_recent = true
 
-
-module "asg" {
-  source  = "terraform-aws-modules/autoscaling/aws"
-  version = "~> 4.0"
-
-  # Autoscaling group
-  name = "example-asg"
-
-  min_size                  = 2
-  max_size                  = 6
-  desired_capacity          = 2
-  wait_for_capacity_timeout = 0
-  health_check_type         = "EC2"
-  vpc_zone_identifier       = ["subnet-0452ff73f215eb78f"]
-  
-
-  instance_refresh = {
-    strategy = "Rolling"
-    preferences = {
-      min_healthy_percentage = 50
-    }
-    triggers = ["tag"]
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-trusty-14.04-amd64-server-*"]
   }
 
-  # Launch template
-  lt_name                = "example-asg"
-  description            = "Launch template example"
-  update_default_version = true
-
-  use_lt    = true
-  create_lt = true
-
-  image_id          = "ami-0ff8a91507f77f867"
-  instance_type     = "t2.micro"
-  ebs_optimized     = true
-  enable_monitoring = true
-
-
-  capacity_reservation_specification = {
-    capacity_reservation_preference = "open"
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
   }
 
-  cpu_options = {
-    core_count       = 1
-    threads_per_core = 1
-  }
+  owners = ["099720109477"] # Canonical
+}
 
-  credit_specification = {
-    cpu_credits = "standard"
-  }
+resource "aws_launch_configuration" "as_conf" {
+  name          = "web_config"
+  image_id      = data.aws_ami.ubuntu.id
+  instance_type = "t2.micro"
+}
+// Had issue creating ASG on subnet4 but did create it on us-east-1b
+resource "aws_autoscaling_group" "bar" {
+  name                 = "terraform-asg-example"
+  launch_configuration = aws_launch_configuration.as_conf.name
+  min_size             = 2
+  max_size             = 6
+  availability_zones = ["us-east-1b"]
 
-  instance_market_options = {
-    market_type = "spot"
-    spot_options = {
-      block_duration_minutes = 60
-    }
-  }
-
-  metadata_options = {
-    http_endpoint               = "enabled"
-    http_tokens                 = "required"
-    http_put_response_hop_limit = 32
-  }
-
-
-
-  placement = {
-    availability_zone = "us-east-1b"
-  }
-
-  tag_specifications = [
-    {
-      resource_type = "instance"
-      tags          = { WhatAmI = "Instance" }
-    },
-    {
-      resource_type = "volume"
-      tags          = { WhatAmI = "Volume" }
-    },
-    {
-      resource_type = "spot-instances-request"
-      tags          = { WhatAmI = "SpotInstanceRequest" }
-    }
-  ]
-
-  tags = [
-    {
-      key                 = "Environment"
-      value               = "dev"
-      propagate_at_launch = true
-    },
-    {
-      key                 = "Project"
-      value               = "megasecret"
-      propagate_at_launch = true
-    },
-  ]
-
-  tags_as_map = {
-    extra_tag1 = "extra_value1"
-    extra_tag2 = "extra_value2"
+  lifecycle {
+    create_before_destroy = true
   }
 }
