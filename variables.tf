@@ -31,7 +31,7 @@ variable "availability_zones" {
 
 variable "vpc_id" {
   type = string
-  default = "vpc-0d9df4ae74bb666c6"
+  default = "vpc-0b16b8f92124eb6d5"
 }
  
  
